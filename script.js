@@ -35,43 +35,42 @@
 console.log("working")
 const apiKey = "AIzaSyAKfTN1i3K8XrREfjAEHmU6K2cFXjSTvHk"
 // Favorite Book Variables
-const imageDiv = document.querySelector("#image")
-let booktitle1 = document.querySelector("#bookTitle")
-let bookAuthor1 = document.querySelector("#author")
-let bookDescription = document.querySelector("#description")
+const inputImageDiv = document.querySelector("#inputImage")
+let inputTitle1 = document.querySelector("#inputTitle")
+let inputAuthor1 = document.querySelector("#inputAuthor")
+let inputDescription = document.querySelector("#description")
 let button = document.querySelector("#searchButton")
 // Recommendation 1 Variables
-const rec1imageDiv = document.querySelector("#image2")
+const rec1imageDiv = document.querySelector("#rec1image")
 let rec1TitleH2 = document.querySelector("#rec1Title")
 let rec1AuthorH2 = document.querySelector("#rec1author")
 let rec1DescriptionP = document.querySelector("#rec1description")
 // recommendation 2 variables
-const rec2imageDiv = document.querySelector("#image3")
+const rec2imageDiv = document.querySelector("#rec2image")
 let rec2TitleH2 = document.querySelector("#rec2Title")
 let rec2AuthorH2 = document.querySelector("#rec2author")
 let rec2DescriptionP = document.querySelector("#rec2description")
 // recommendation 3 variables
-const rec3imageDiv = document.querySelector("#image4")
+const rec3imageDiv = document.querySelector("#rec3image")
 let rec3TitleH2 = document.querySelector("#rec3Title")
 let rec3AuthorH2 = document.querySelector("#rec3author")
 let rec3DescriptionP = document.querySelector("#rec3description")
-
 
 
 button.addEventListener('click', async () => {
     let input = document.querySelector("#inputBar").value
     // gathering the data for favorite book
     let response = await axios.get(`https://www.googleapis.com/books/v1/volumes/?q=${input}&key=${apiKey}&maxResults=1`)
-    let favoriteTitle = response.data.items[0].volumeInfo.title
+    let inputTitle = response.data.items[0].volumeInfo.title
     // let favoriteSubtitle = response.data.items[0].volumeInfo.subtitle
-    let favoriteBAuthor = response.data.items[0].volumeInfo.authors[0]
-    let tempImage = response.data.items[0].volumeInfo.imageLinks.thumbnail
-    let favBDescription = response.data.items[0].volumeInfo.description
+    let inputAuthor = response.data.items[0].volumeInfo.authors[0]
+    let inputImage = response.data.items[0].volumeInfo.imageLinks.thumbnail
+    let inputDescription = response.data.items[0].volumeInfo.description
     // injecting the outputs fo title, subtitle, author, image
-    booktitle1.innerHTML = `${favoriteTitle}`
-    bookAuthor1.innerHTML = `By ${favoriteBAuthor}`
-    imageDiv.innerHTML = `<image src = ${tempImage}>`
-    bookDescription.innerHTML = `Description: ${favBDescription}`
+    inputTitle1.innerHTML = `${inputTitle}`
+    inputAuthor1.innerHTML = `By ${inputAuthor}`
+    inputImageDiv.innerHTML = `<image src = ${inputImage}>`
+    inputDescription.innerHTML = `Description: ${inputDescription}`
 
     // gathering the data for book rec 1
     let favBookGenre = response.data.items[0].volumeInfo.categories[0]
@@ -123,4 +122,14 @@ button.addEventListener('click', async () => {
    rec3imageDiv.innerHTML = `<image src = ${rec3Image}>`
    rec3DescriptionP.innerHTML = `Description: ${rec3Description}`
    console.log(rec3Description)
+})
+
+document.querySelector('#inputBar').addEventListener('keypress', function(e) {
+    if (e.keyCode === 13) {
+        button.click()
+    }
+})
+
+document.querySelector('#reSearchButton').addEventListener('click', function(event) {
+    button.click()
 })
