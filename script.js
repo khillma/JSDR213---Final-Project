@@ -38,7 +38,7 @@ const apiKey = "AIzaSyAKfTN1i3K8XrREfjAEHmU6K2cFXjSTvHk"
 const inputImageDiv = document.querySelector("#inputImage")
 let inputTitle1 = document.querySelector("#inputTitle")
 let inputAuthor1 = document.querySelector("#inputAuthor")
-let inputDescription = document.querySelector("#description")
+let inputDescription1 = document.querySelector("#inputDescription")
 let button = document.querySelector("#searchButton")
 // Recommendation 1 Variables
 const rec1imageDiv = document.querySelector("#rec1image")
@@ -70,7 +70,8 @@ button.addEventListener('click', async () => {
     inputTitle1.innerHTML = `${inputTitle}`
     inputAuthor1.innerHTML = `By ${inputAuthor}`
     inputImageDiv.innerHTML = `<image src = ${inputImage}>`
-    inputDescription.innerHTML = `Description: ${inputDescription}`
+    inputDescription1.innerHTML = `Description: ${inputDescription}`
+    console.log(inputDescription)
 
     // gathering the data for book rec 1
     let favBookGenre = response.data.items[0].volumeInfo.categories[0]
